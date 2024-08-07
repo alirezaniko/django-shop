@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # my apps
     'users.apps.UsersConfig',
+    'products.apps.ProductsConfig',
+
+    'ckeditor',
+    'django_jalali',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
