@@ -28,9 +28,3 @@ class AttributeAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
 
-
-@admin.register(ProductAttribute)
-class ProductAttributeAdmin(admin.ModelAdmin):
-    list_display = ('product', 'attribute', 'value')
-    list_filter = ('attribute', 'product')
-    search_fields = ('value',)

@@ -31,6 +31,7 @@ class Image(models.Model):
     product = models.ForeignKey('Product', null=True, blank=True, on_delete=models.CASCADE,
                                 related_name='images_related')
     image = models.ImageField(upload_to='product-img', verbose_name='image')
+    alt = models.CharField(max_length=500, null=True, blank=True, verbose_name='image alt')
 
     class Meta:
         verbose_name = 'image'
@@ -53,15 +54,13 @@ class Tag(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=255)
-    category = models.ForeignKey(Category, blank=True, null=True, on_delete=models.CASCADE, related_name='category')
+    category = models.ForeignKey(Category, blank=True, null=True, on_delete=models.CASCADE, related_name='products')
     description = models.TextField(blank=True, null=True)
     body = RichTextField()
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.IntegerField()
     discount = models.PositiveIntegerField(null=True, blank=True, verbose_name='discount percent')
-
     images = models.ManyToManyField(Image, null=True, blank=True, related_name='post_images',
                                     verbose_name='Product photos')
-    alt = models.CharField(max_length=500, null=True, blank=True, verbose_name='image alt')
     created_at = jmodels.jDateTimeField(auto_now_add=True)
     updated_at = jmodels.jDateTimeField(auto_now=True)
     tag = models.ManyToManyField(Tag, null=True, blank=True, related_name='post_tag')
@@ -92,7 +91,7 @@ class Attribute(models.Model):
 
 
 class ProductAttribute(models.Model):
-    product = models.ForeignKey(Product, related_name='attributes', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='product_attributes', on_delete=models.CASCADE)
     attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE)
     value = models.CharField(max_length=255)
 
